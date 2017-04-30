@@ -26,7 +26,7 @@ SECRET_KEY = '_lwyyeb7y)obeipgzlx$_h&$7+6@u05fv#17-0y!=l9ppaxk!r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['geri','freki','sindri','brokkr','localhost']
 
 
 # Application definition
@@ -79,7 +79,7 @@ DATABASES = {
         'ENGINE': '',
     }
 }
-_MONGODB_NAME = 'autoshopper'
+_MONGODB_NAME = 'recipe_at_home'
 mongoengine.connect(_MONGODB_NAME)
 
 

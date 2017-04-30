@@ -1,0 +1,50 @@
+<html>
+
+<head>
+    <style type="text/css">
+        body {
+            margin: auto;
+            margin-top: 2%;
+            width: 40%;
+        }
+        
+        input {
+            clear: right;
+            float: right;
+            width: 62%;
+            margin: 1%;
+        }
+        
+        label {
+            clear: left;
+            float: left;
+            width: 32%;
+            margin: 1%;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <h3>Please Fill Out the Details for the Recipe</h3>
+    <form id="recipeForm" action="/create/create_recipe/" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="addStep" value="false" id="addStepField" />
+        {{ form }}
+        <input id="addStepButton" type="button" value="Add Steps"/>
+        <input id="submit" type="submit" value="Submit" />
+    </form>
+
+</body>
+<script>
+$('#addStepButton').click(function(){
+     $('#addStepField').val("true");
+     console.log("Submitting");
+     $.post($('#recipeForm').attr('action'), $('#recipeForm').serialize());
+     console.log("Submitted??");
+});
+
+</script>
+
+</html>
