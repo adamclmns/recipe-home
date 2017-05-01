@@ -1,7 +1,7 @@
 from django.shortcuts import render
-from .forms import RecipeForm, AmountIngredientForm, RecipeStepForm
-from .models import Recipe, AmountIngredient, RecipeStep
-
+from .forms import RecipeForm, AmountIngredientForm, RecipeStepForm, SampleForm
+from .models import Recipe, AmountIngredient, RecipeStep, TestModel
+import json
 
 # Create your views here.
 def index(request):
@@ -33,3 +33,26 @@ def create_recipe_form(request):
         form = RecipeForm()
 
     return render(request, 'recipeForm.html', {'form': form})
+
+
+def new_recipe_form(request):
+    if request.method == 'POST':
+        print(request.POST)
+        form = SampleForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            submitted = TestModel.from_json(json.dumps(form.cleaned_data))
+            print(submitted)
+            submitted.save()
+            return HttpResponseRedirect('/create/test')
+    else:
+        form = SampleForm()
+    return render(request, 'testForm.html', {'form':form})
+    
+    # Is there already a Recipe being made? Use query param to get ID of current recipe being edited
+    # Populate the already present information
+    # Save current information to database if any change
+    # Requesting new Embedded Document be added? 
+    # if yes, generate new Embedded Document Form, add to existing form, and render
+    # Completed? Save button? 
+    

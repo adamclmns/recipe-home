@@ -9,12 +9,16 @@ class AmountIngredient(EmbeddedDocument):
 
 class RecipeStep(EmbeddedDocument):
     ingredients = StringField(max_value=100)
-    #ingredients = EmbeddedDocumentListField(AmountIngredient)
     step_to_perform = StringField(max_value=500)
 
 class Recipe(Document):
     name = StringField(max_length=100)
     tags = StringField(max_length=1000)
     description = StringField(max_length=500)
-    #steps = StringField(max_length=100)
-    steps = fields.ListField(fields.EmbeddedDocumentField('RecipeStep'))
+    ingredients = StringField(max_value=100)
+    steps = StringField(max_length=100)    
+
+
+class TestModel(Document):
+    name= StringField(max_length=None)
+    test = IntField(max_value=None)

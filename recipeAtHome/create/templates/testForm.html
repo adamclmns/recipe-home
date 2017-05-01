@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <style type="text/css">
+        body {
+            margin: auto;
+            margin-top: 2%;
+            width: 40%;
+        }
+        
+        input {
+            clear: right;
+            float: right;
+            width: 62%;
+            margin: 1%;
+        }
+        
+        label {
+            clear: left;
+            float: left;
+            width: 32%;
+            margin: 1%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h3>Please Fill Out the Details for the Test</h3>
+    <form action="/create/test}" method="post">
+        {% csrf_token %} {{ form }}
+        <input id="submit" type="submit" value="Submit" />
+    </form>
+
+</body>
+
+</html>
