@@ -2,6 +2,9 @@ from mongoengine import Document, DynamicDocument, EmbeddedDocument, fields
 from mongoengine import StringField, IntField, FloatField, EmbeddedDocumentListField, EmbeddedDocumentField
 # Create your models here.
 
+class IgnoreExtraFields():
+    meta = {'strict':False}
+    
 class AmountIngredient(EmbeddedDocument):
     quantity = FloatField(max_value=100)
     unit = StringField(max_value=100)
@@ -19,6 +22,7 @@ class Recipe(Document):
     steps = StringField(max_length=100)    
 
 
-class TestModel(Document):
-    name= StringField(max_length=None)
-    test = IntField(max_value=None)
+class TestModel(Document, IgnoreExtraFields):
+    name= StringField(max_length=100)
+    test = IntField(max_value=9999)
+    

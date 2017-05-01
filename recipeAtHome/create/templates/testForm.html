@@ -28,7 +28,7 @@
 
 <body>
     <h3>Please Fill Out the Details for the Test</h3>
-    <form action="/create/test}" method="post">
+    <form action="/create/new_test" method="post">
         {% csrf_token %} {{ form }}
         <input id="submit" type="submit" value="Submit" />
     </form>

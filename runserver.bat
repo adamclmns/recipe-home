@@ -1,0 +1,1 @@
+python recipeAtHome/manage.py runserver
