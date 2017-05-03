@@ -1,5 +1,5 @@
 from mongodbforms import DocumentForm, EmbeddedDocumentForm, ModelFormOptions
-from .models import Recipe
+from .models import Recipe, RecipeStep
 
 class AbstractObjectForm():
     pass
@@ -7,4 +7,9 @@ class AbstractObjectForm():
 class RecipeForm(DocumentForm):
     class Meta:
         model = Recipe
-        fields = ['name', 'description', 'cook_time', 'prep_time', 'ingredients', 'steps']
+        fields = ['title', 'description', 'cook_time', 'prep_time', 'ingredients']
+
+class RecipeStepForm(EmbeddedDocumentForm):
+    class Meta:
+        model=RecipeStep
+        fields = ['name','amount']

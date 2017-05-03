@@ -1,0 +1,31 @@
+<html>
+<head>
+    <title>{{data.title}}</title>
+
+</head>
+<body>
+{{data.title}}
+
+
+    <div>
+        <h2>{{ object.title }}</h2>
+        <p><b>Description: </b>{{ object.description }}</p>
+        <p><b>Cook Time: </b>{{ object.cook_time}}</p>
+        <p><b>Prep Time: </b>{{ object.prep_time }}</>
+        <p><a href="/recipe/edit/{{object.id}}">EDIT</a></p>
+    </div>
+    <hr>
+    <h4>Steps:</h4>
+    <a href="/recipe/edit/{{object.id}}/edit">Add Step</a>
+<table border="solid">
+    {% for step in object.steps %}
+    <tr>
+        <td>{{step.name}}</td>
+        <td>{{step.amount}}</td>
+        <td>{{step.id}}</td>
+    </tr>
+    {% endfor %}
+</table>
+{{ object.steps }}
+</body>
+</html>
