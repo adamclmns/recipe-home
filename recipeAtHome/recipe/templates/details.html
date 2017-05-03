@@ -20,9 +20,19 @@
 <table border="solid">
     {% for step in object.steps.all %}
     <tr>
-        <td>{{step.name}}</td>
-        <td>{{step.amount}}</td>
+        <td><tr>
+        {% for ingredient in step.ingredients.all %}    
+            <td>{{ingredient.name}}</td>
+            <td>{{ingredient.amount}}</td>
+            <td>{{ingredient.unit}}</td>
+        {% endfor %}
+        </tr></td>
+
+        <td>{{step.instructions}}</td>
         <td>{{step.id}}</td>
+        <td>EDIT</td>
+        <td>DELETE</td>
+        <td>DETAILS</td>
     </tr>
     {% endfor %}
 </table>

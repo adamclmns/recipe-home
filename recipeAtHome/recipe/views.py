@@ -2,8 +2,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.core import serializers
-from .models import Recipe, RecipeStep, DocumentUtils
-from .forms import RecipeForm, RecipeStepForm
+from .models import Recipe, RecipeStep
+from .models import RecipeForm, RecipeStepForm
 import json
 
 class defaultPageInformation(object):
@@ -61,7 +61,7 @@ def edit_recipe_step(request, recipe_id, step_id=None):
     data.action = "/recipe/edit/"+recipe_id+"/edit"
     recipe = get_object_or_404(Recipe, id=recipe_id)
     if step_id is None:
-        recipe_step = Recipe()
+        recipe_step = RecipeStep()
     else:
         # If we have an ID, we want to be sure to POST back to that same ID in the url
         # else it makes a new one
@@ -71,6 +71,8 @@ def edit_recipe_step(request, recipe_id, step_id=None):
         form = RecipeStepForm(request.POST or None, instance=recipe_step)
         if form.is_valid():
             recipe_step = form.save()
+            print("adding the step to the recipe")
+            recipe.steps.add(recipe_step)
             return HttpResponseRedirect('/recipe/details/'+recipe_id)
     else:
         form = RecipeStepForm(instance=recipe_step)

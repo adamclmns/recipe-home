@@ -1,35 +1,36 @@
 """ Views for Recipe"""
 from django.db import models
 from django.http import Http404
+from django.forms import ModelForm
 
-# Create your models here.
-class DocumentUtils():
-    meta = {'strict':False}
-    @staticmethod
-    def get_object_or_404(klass, *args, **kwargs):
-        try:
-            return klass.objects.get(*args, **kwargs)
-        except klass.DoesNotExist:
-            raise Http404
+class IngredientValue(models.Model):
+    name = models.CharField(max_length=50)
+    unit = models.CharField(max_length=10)
+    amount = models.FloatField()
+
+class IngredientValueForm(ModelForm):
+    class Meta:
+        model=IngredientValue
+        fields = ['name','unit','amount']
 
 class RecipeStep(models.Model):
-    name = models.CharField(max_length=50)
-    amount = models.CharField(max_length=50)
+    ingredients = models.ManyToManyField(IngredientValue)
+    instructions = models.CharField(max_length=500, default=None, blank=True)
+
+
+class RecipeStepForm(ModelForm):
+    class Meta:
+        model=RecipeStep
+        fields = ['instructions']
 
 class Recipe(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=500)
     cook_time = models.FloatField()
     prep_time = models.FloatField()
-    ingredients = models.CharField(max_length=50)
     steps = models.ManyToManyField(RecipeStep)
 
-    """
-/edit/{id} -- edits an existing recipe -IMPLEMENTED
-/edit -- creates new recipe -- IMPLEMENTED
-/details/{id} -- shows details of a recipe (full view) -- IMPLEMENTED
-/edit/{id}/steps/new --Create new ingredient in recipe {id} 
-/edit/{id}/steps/{id} -- edits an existing ingredient {id} in recipe{id}
-/edit/
-
-    """
+class RecipeForm(ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ['title', 'description', 'cook_time', 'prep_time']
