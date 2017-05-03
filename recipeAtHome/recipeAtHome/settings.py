@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import mongoengine
+#import mongoengine
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -76,11 +76,13 @@ WSGI_APPLICATION = 'recipeAtHome.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME':BASE_DIR+'\dev.db',
     }
 }
-_MONGODB_NAME = 'recipe_at_home'
-mongoengine.connect(_MONGODB_NAME)
+
+#_MONGODB_NAME = 'recipe_at_home'
+#mongoengine.connect(_MONGODB_NAME)
 
 
 # Password validation

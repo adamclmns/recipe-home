@@ -18,7 +18,7 @@
     <h4>Steps:</h4>
     <a href="/recipe/edit/{{object.id}}/edit">Add Step</a>
 <table border="solid">
-    {% for step in object.steps %}
+    {% for step in object.steps.all %}
     <tr>
         <td>{{step.name}}</td>
         <td>{{step.amount}}</td>

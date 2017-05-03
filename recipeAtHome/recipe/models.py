@@ -1,7 +1,5 @@
 """ Views for Recipe"""
-from mongoengine import Document, EmbeddedDocument
-from mongoengine import EmbeddedDocumentListField
-from mongoengine import StringField, FloatField, ListField
+from django.db import models
 from django.http import Http404
 
 # Create your models here.
@@ -14,18 +12,17 @@ class DocumentUtils():
         except klass.DoesNotExist:
             raise Http404
 
-class RecipeStep(EmbeddedDocument, DocumentUtils):
-    name = StringField(max_length=50)
-    amount = StringField(max_length=50)
+class RecipeStep(models.Model):
+    name = models.CharField(max_length=50)
+    amount = models.CharField(max_length=50)
 
-class Recipe(Document, DocumentUtils):
-    title = StringField(max_length=50)
-    description = StringField(max_length=None)
-    tags = ListField()
-    cook_time = FloatField()
-    prep_time = FloatField()
-    ingredients = StringField()
-    steps = EmbeddedDocumentListField(RecipeStep)
+class Recipe(models.Model):
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=500)
+    cook_time = models.FloatField()
+    prep_time = models.FloatField()
+    ingredients = models.CharField(max_length=50)
+    steps = models.ManyToManyField(RecipeStep)
 
     """
 /edit/{id} -- edits an existing recipe -IMPLEMENTED
