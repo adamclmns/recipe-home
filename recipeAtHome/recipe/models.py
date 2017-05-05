@@ -3,18 +3,18 @@ from django.db import models
 from django.http import Http404
 from django.forms import ModelForm
 
-class IngredientValue(models.Model):
+class Ingredient(models.Model):
     name = models.CharField(max_length=50)
     unit = models.CharField(max_length=10)
     amount = models.FloatField()
 
-class IngredientValueForm(ModelForm):
+class IngredientForm(ModelForm):
     class Meta:
-        model=IngredientValue
-        fields = ['name','unit','amount']
+        model=Ingredient
+        fields = ['name','amount','unit']
 
 class RecipeStep(models.Model):
-    ingredients = models.ManyToManyField(IngredientValue)
+    ingredients = models.ManyToManyField(Ingredient)
     instructions = models.CharField(max_length=500, default=None, blank=True)
 
 

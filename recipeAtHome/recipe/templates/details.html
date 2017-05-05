@@ -1,41 +1,51 @@
 <html>
+
 <head>
     <title>{{data.title}}</title>
 
 </head>
+
 <body>
-{{data.title}}
+    {{data.title}}
 
 
     <div>
         <h2>{{ object.title }}</h2>
         <p><b>Description: </b>{{ object.description }}</p>
         <p><b>Cook Time: </b>{{ object.cook_time}}</p>
-        <p><b>Prep Time: </b>{{ object.prep_time }}</>
-        <p><a href="/recipe/edit/{{object.id}}">EDIT</a></p>
+        <p><b>Prep Time: </b>{{ object.prep_time }}
+            </>
+            <p><a href="/recipe/edit/{{object.id}}">EDIT</a></p>
     </div>
     <hr>
     <h4>Steps:</h4>
     <a href="/recipe/edit/{{object.id}}/edit">Add Step</a>
-<table border="solid">
-    {% for step in object.steps.all %}
-    <tr>
-        <td><tr>
-        {% for ingredient in step.ingredients.all %}    
-            <td>{{ingredient.name}}</td>
-            <td>{{ingredient.amount}}</td>
-            <td>{{ingredient.unit}}</td>
-        {% endfor %}
-        </tr></td>
+    <table border="solid">
+        {% for step in object.steps.all %}
+        <tr>
+            <td>
+                <table>
+                    
+                        {% for ingredient in step.ingredients.all %}
+                        <tr>
+                        <td>{{ingredient.name}}</td>
+                        <td>{{ingredient.amount}}</td>
+                        <td>{{ingredient.unit}}</td>
+                        <td><a href="/recipe/details/{{object.id}}/step/{{step.id}}/delete/{{ingredient.id}}">X</a></td>
+                        </tr>
+                        {% endfor %}
+                </table>
+            </td>
 
-        <td>{{step.instructions}}</td>
-        <td>{{step.id}}</td>
-        <td>EDIT</td>
-        <td>DELETE</td>
-        <td>DETAILS</td>
-    </tr>
-    {% endfor %}
-</table>
-{{ object.steps }}
+            <td>{{step.instructions}}</td>
+            <td>{{step.id}}</td>
+            <td><a href="/recipe/edit/{{object.id}}/edit/{{step.id}}">EDIT</a></td>
+            <td><a href="/recipe/details/{{object.id}}/delete/{{step.id}}">DELETE</a></td>
+            <td><a href="/recipe/details/{{object.id}}/add_ingredient/{{step.id}}">ADD INGREDIENTS</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    {{ object.steps }}
 </body>
+
 </html>
