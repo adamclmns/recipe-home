@@ -19,17 +19,17 @@ def index(request):
     objects = Recipe.objects.all()
     return render(request, 'index.html', {'data':data, 'objects':objects})
 
-def edit(request, recipe_id=None):
+def edit(request, rsvp_id=None):
     """ /edit /edit/{id} """
     data = defaultPageInformation()
     data.action = "/recipe/edit/"
-    if recipe_id is None:
+    if rsvp_id is None:
         obj = Recipe()
     else:
         # If we have an ID, we want to be sure to POST back to that same ID in the url, 
         # else it makes a new one
-        data.action += recipe_id
-        obj = get_object_or_404(Recipe, id=recipe_id)
+        data.action += rsvp_id
+        obj = get_object_or_404(Recipe, id=rsvp_id)
     if request.method == 'POST':
         form = RecipeForm(request.POST or None, instance=obj)
         if form.is_valid():
